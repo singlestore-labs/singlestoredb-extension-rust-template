@@ -23,10 +23,11 @@ impl extension::Extension for Extension {
     }
 
     /// Updates the current WASM state
-    fn set_state(s: State) -> () {
+    fn set_state(s: State) -> i32 {
         WASM_STATE.with(|state| {
             state.replace(s);
-        });
+            state.borrow().idx
+        })
     }
 
     /// Returns the current WASM state
