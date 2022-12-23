@@ -14,7 +14,7 @@ jobs:
     - name: Build docker image
       run: docker build . -t singlestoredb-extension-rust -f Dockerfile
     - name: Build WASM binary
-      run: docker run -v $PWD:/repo -w/repo singlestoredb-extension-rust /bin/bash -c cargo wasi build --release
+      run: docker run -v $PWD:/repo -w/repo singlestoredb-extension-rust /bin/bash -c cargo clippy -- -Dwarnings && cargo wasi build --release
     - name: Create importer
       run: ./create_loader.sh
     - uses: "marvinpinto/action-automatic-releases@latest"
